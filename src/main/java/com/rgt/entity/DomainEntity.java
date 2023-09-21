@@ -47,6 +47,13 @@ public class DomainEntity {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
+
+	@Override
+	public String toString() {
+		return "DomainEntity [id=" + id + ", name=" + name + ", createdOn=" + createdOn + "]";
+	}
+	
+	
 	
 	
 
