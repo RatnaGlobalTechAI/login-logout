@@ -15,6 +15,6 @@ public interface UserService {
 
 	ResponseObject verifyOtp(OtpVerificationRequest otpVerificationRequest);
 
-	ResponseObject logoutUser(LoginRequest loginRequest);
+	ResponseObject logoutUser(String token);
 
 }

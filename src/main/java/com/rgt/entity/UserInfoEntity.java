@@ -1,21 +1,30 @@
 package com.rgt.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "user_info")
-public class UserInfoEntity {
+public class UserInfoEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "USERNAME")
@@ -65,11 +74,53 @@ public class UserInfoEntity {
 
 	@Column(name = "PANCARD_NUMBER")
 	private String pancard;
-	
+
 	@Column(name = "CREATED_ON")
 	private Date createdOn;
+
+//	@JoinTable(name = "user_role_mapping", joinColumns = {
+//			@JoinColumn(name = "EMAIL_ID", referencedColumnName = "EMAIL_ID") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
+	
+	/*
+	 * @JoinTable(name = "user_role_mapping", joinColumns = { @JoinColumn(name =
+	 * "EMAIL_ID", referencedColumnName = "EMAIL_ID") }, inverseJoinColumns =
+	 * { @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
+	 * 
+	 * @ManyToMany private List<RoleEntity> userRoleList;
+	 */
 	
 	
+	/*
+	 * @NotEmpty(message = "{user.role.NotEmpty}")
+	 * 
+	 * @Pattern(regexp="^(Admin)$" , message="{user.role.valid}") private String
+	 * role;
+	 */
+	
+	@Column(name = "LOGOUT_TIME")
+	private Date logoutTime;
+	
+	
+	
+	
+
+	public Date getLogoutTime() {
+		return logoutTime;
+	}
+
+	public void setLogoutTime(Date logoutTime) {
+		this.logoutTime = logoutTime;
+	}
+
+
+	/*
+	 * @XmlTransient public List<RoleEntity> getUserRoleList() { return
+	 * userRoleList; }
+	 * 
+	 * public void setUserRoleList(List<RoleEntity> userRoleList) {
+	 * this.userRoleList = userRoleList; }
+	 */
 
 	public Integer getId() {
 		return id;
@@ -214,8 +265,5 @@ public class UserInfoEntity {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	
-	
-	
 
 }

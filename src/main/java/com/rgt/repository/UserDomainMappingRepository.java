@@ -8,4 +8,8 @@ import com.rgt.entity.UserDomainMappingEntity;
 @Repository
 public interface UserDomainMappingRepository extends JpaRepository<UserDomainMappingEntity, Integer>{
 
+	UserDomainMappingEntity findByEmailId(String emailId);
+
+	UserDomainMappingEntity findByEmailIdAndDomainId(String emailId, Integer domainId);
+
 }

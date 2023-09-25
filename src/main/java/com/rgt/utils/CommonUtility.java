@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class CommonUtility {
 	
@@ -23,6 +25,15 @@ public class CommonUtility {
 	public static java.sql.Timestamp getCurrentTimeStamp() {
 		Date today = new Date();
 		return new java.sql.Timestamp(today.getTime());
+	}
+	
+	public static String getLoginUserName() throws Exception {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth!=null){
+			String emailId = (String) auth.getPrincipal();
+			return emailId;
+		}
+		return "";
 	}
 	
 }

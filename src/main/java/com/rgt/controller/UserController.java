@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,7 @@ import com.rgt.service.UserService;
 public class UserController {
 
 	private static Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 
 	@Autowired
 	private UserService userService;
@@ -52,16 +55,15 @@ public class UserController {
 	public ResponseObject verifyOtp(@RequestBody OtpVerificationRequest otpVerificationRequest) {
 		ResponseObject response = new ResponseObject();
 		response = userService.verifyOtp(otpVerificationRequest);
-
 		return response;
 	}
 
 	@PostMapping(value = "/logout")
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseObject logoutUser(@RequestBody LoginRequest loginRequest) {
+	public ResponseObject logoutUser(@RequestHeader("Authorization") String token) {
 		ResponseObject response = new ResponseObject();
 		logger.debug("logoutUser");
-		response = userService.logoutUser(loginRequest);
+		response = userService.logoutUser(token);
 		return response;
 	}
 
